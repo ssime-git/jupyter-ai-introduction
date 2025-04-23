@@ -1,0 +1,29 @@
+services:
+  app:
+    entrypoint:
+    - sleep
+    - infinity
+    image: jupyter/datascience-notebook:latest
+    init: true
+    ports:
+      - "8888:8888"
+    volumes:
+    - type: bind
+      source: /var/run/docker.sock
+      target: /var/run/docker.sock
+    - ./notebooks:/home/notebooks
+    - ./jupyter_config:/root/.jupyter
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+      - OLLAMA_API_BASE=http://host.docker.internal:11434/api
+      - OLLAMA_HOST=host.docker.internal:11434
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: >
+      bash -c "apt-get update && apt-get install -y python3-pip &&
+              pip install jupyterlab jupyter-ai jupyter-ai-magics langchain-ollama langchain-google-genai 'numpy<2.0' &&
+              jupyter server extension enable jupyter_ai &&
+              mkdir -p /root/.jupyter/lab/user-settings/jupyter-ai &&
+              echo '{\"defaultLanguageModel\":\"ollama:llama3.2\"}' > /root/.jupyter/lab/user-settings/jupyter-ai/plugin.jupyterlab-settings &&
+              jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --no-browser --NotebookApp.token='' --NotebookApp.password='' --AiExtension.default_language_model=ollama:llama3.2"

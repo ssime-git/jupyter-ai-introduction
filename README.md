@@ -1,12 +1,49 @@
-# jupyter-ai-introduction
-Sample code to introduce jupyter ai extension
+# Jupyter AI Introduction
 
-## Documentation
+![Jupyter AI Logo](./assets/image.png)
 
-You can fine the model providers [here](https://jupyter-ai.readthedocs.io/en/latest/users/index.html#model-providers).
+A curated environment for exploring Jupyter AI capabilities with pre-configured model providers.
 
-![Model providers](./assets/image.png)
+## Features
 
-Each time you see Python packages associated to a model provider, this means that you need to install them for teh extension to properly works.
+- Pre-built Docker environment with Jupyter Lab
+- Integrated support for Ollama and Google Gemini
+- Example notebooks for AI workflow demonstrations
 
-For example, in this tutorial we want to setup Ollama and gemini as this can be used for free. In addition to install `jupyter-ai`, you need to install `langchain-ollama` along with `numpy<2.0` and `langchain-google-genai`.
+## Prerequisites
+
+- [Docker Desktop](https://www.docker.com) (Linux: Docker Engine + Compose Plugin)
+- [Git](https://git-scm.com/downloads)
+
+## Quick Start
+
+```bash
+git clone https://github.com/jupyter-ai/jupyter-ai-introduction.git
+cd jupyter-ai-introduction
+
+# Start services (Jupyter Lab + Ollama)
+docker compose up -d
+```
+
+## Configuration
+
+1. Copy environment template:
+   ```bash
+   cp env_template .env
+   ```
+2. Add your [Google Gemini API Key](https://aistudio.google.com/app/apikey)
+
+## Usage Guide
+
+Access Jupyter Lab at `http://localhost:8888` and start using Jupyter AI in a jupyter notebook.
+
+## Model Providers
+
+Supported providers with installation requirements:
+
+| Provider | Required Packages |
+|----------|-------------------|
+| Ollama | langchain-ollama |
+| Gemini | langchain-google-genai numpy<2.0 |
+
+[Full documentation →](https://jupyter-ai.readthedocs.io)
